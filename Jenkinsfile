@@ -2,15 +2,15 @@ pipeline {
     agent any
     
     environment {
-        IMAGE_NAME = "idrisniyi94/password-app"
+        IMAGE_NAME = "itzprotein/password-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
-        CONTAINER_NAME = "lab-server-password-app"
+        CONTAINER_NAME = "adeola-password-app"
     }
     
     stages {
         stage('Git Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/stwins60/password-reminder.git']])
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/itzprotein/password-reminder.git']])
             }
         }
         stage("Docker Build") {
@@ -33,7 +33,7 @@ pipeline {
         }
        stage("Run App") {
            steps {
-               sh "docker run -d --name ${CONTAINER_NAME} -p 3414:5000 -e USER=lab-server ${IMAGE_NAME}:v-0.0.${IMAGE_TAG}"
+               sh "docker run -d --name ${CONTAINER_NAME} -p 3419:5000 -e USER=adeola ${IMAGE_NAME}:v-0.0.${IMAGE_TAG}"
            }
        }
     }
